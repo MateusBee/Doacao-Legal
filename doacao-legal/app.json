@@ -1,0 +1,17 @@
+{
+  "name": "doacao-legal",
+  "displayName": "doacao-legal",
+  "expo": {
+    "name": "doacao-legal",
+    "slug": "doacao-legal",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
