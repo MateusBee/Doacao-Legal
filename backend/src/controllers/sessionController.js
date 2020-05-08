@@ -8,9 +8,8 @@ module.exports = {
         const user = await connection('user')
             .where('email', email).andWhere('senha', senha)
             .select(
+                'user.id',
                 'user.name',
-                'user.telefone',
-                'user.email',
             )
             .first();
 

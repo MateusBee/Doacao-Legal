@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native'
-import { Alert, Text, View } from 'react-native';
+import { Alert, Text, View, AsyncStorage } from 'react-native';
+import { Input, Button } from 'react-native-elements';
 
 import api from '../../service/api'
 
 // import { Gmail } from 'react-native-vector-icons/FontAwesome';
-import { Input, Button } from 'react-native-elements';
 
 import styles from './style'
 
@@ -38,16 +38,13 @@ function Login(){
         
         try{
             const resp = await api.post('login', data);
-            console.log("response: ", resp.request.response)
             const user = JSON.parse(resp.request.response);
-            // console.log(user.telefone);
-            // localStorage.setItem('name', user.name);
-            // localStorage.setItem('telefone', user.telefone);
-            // localStorage.setItem('email', user.email);
+            AsyncStorage.setItem('id', user.id);
+            AsyncStorage.setItem('name', user.name);
+            navigation.navigate('BottomNavigator');
         } catch (err) {
             invalidUser()
         }
-
     }
 
     return (
@@ -92,7 +89,6 @@ function Login(){
                     />
                 </View>
             </View>
-
         </View>
     )
 }

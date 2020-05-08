@@ -4,21 +4,33 @@ module.exports = {
 
     async fetch(request, response) {
         const user_id = request.headers.authorization;
+        const { page = 1 } = request.query
 
+        const [count] = await connection('item')
+            .where('user_id', user_id)
+            .count();
+        
         const items = await connection('item')
             .where('user_id', user_id)
+            .limit(5)
+            .offset((page -1) * 5)
             .select('*');
+
+        response.header('X-Total-Count', count['count(*)'])
 
         return response.json(items);
     },
 
     async index(request, response) { // get all items
+        const { page = 1 } = request.query
 
         const [count] = await connection('item').count();
 
         const item = await connection('item')
             .join('user', 'user.id', '=', 'item.user_id')
             .join('address', 'address.user_id', '=', 'user.id')
+            .limit(5)
+            .offset((page -1) * 5)
             .select([
                 'item.id',
                 'item.item',
