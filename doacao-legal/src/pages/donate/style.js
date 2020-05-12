@@ -15,6 +15,15 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
 
+    headerText: {
+        fontSize: 15,
+        color: '#737380',
+    },
+
+    headerTextBold: {
+        fontWeight: 'bold',
+    },
+
     title: {
         fontSize: 30,
         marginBottom: 16,
@@ -50,7 +59,7 @@ export default StyleSheet.create({
     delete: {
         position: 'absolute',
         alignSelf: 'flex-end',
-        right: 20,
-        top: 20,
+        right: 15,
+        top: 15,
     }
 });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, Text, TouchableOpacity, AsyncStorage } from 'react-native';
+import { Alert, View, FlatList, Text, TouchableOpacity, AsyncStorage } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -13,8 +13,32 @@ function Donate(){
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
 
+    function deleteItem(id) {
+        return Alert.alert(
+            'Deletar',
+            'Você tem certeza que deseja remover esse item da doação?',
+            [
+              {text: 'Cancelar'},
+              {text: 'Deletar', onPress: () => remove(id)}
+            ],
+            { cancelable: false }
+          )
+    }
+
+    async function remove(id) {
+        const user_Id = await AsyncStorage.getItem('id');
+        api.delete(`item/${id}`, {
+            headers: {
+                Authorization: user_Id
+            }
+        }).then(() => {
+            setItems(items.filter(item => item.id !== id));
+            setTotal(total-1);
+        })
+    }
+
     async function loadYourItems() {
-        const User_Id = await AsyncStorage.getItem('id');
+        const user_Id = await AsyncStorage.getItem('id');
 
         if(loading) {
             return;
@@ -28,7 +52,7 @@ function Donate(){
 
         const response = await api.get('own/items', {
             headers: {
-                Authorization: User_Id,
+                Authorization: user_Id,
             },
             params: { page }
         });
@@ -64,7 +88,7 @@ function Donate(){
 
                         <TouchableOpacity
                             style={styles.delete}
-                            // onPress={() => navigateToDetail(incident)} trash-alt
+                            onPress={() => deleteItem(item.id)}
                         >
                             <Icon name="trash" size={20} color="#E02041"/>
                         </TouchableOpacity>

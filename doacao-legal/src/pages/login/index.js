@@ -49,44 +49,46 @@ function Login(){
 
     return (
         <View style={styles.container}>
-            <View>
+            <View style={styles.data}>
                 <View>
-                    <Text style={styles.title}>Bem vindo!</Text>
-                    <Text style={styles.title}>App Doação Legal</Text>
+                    <View>
+                        <Text style={styles.title}>Bem vindo!</Text>
+                        <Text style={styles.title}>App Doação Legal</Text>
+                    </View>
                 </View>
-            </View>
 
-            <View style={styles.login}>
-                <View>
-                    <Input
-                        placeholder='Email'
-                        leftIcon={{ type: 'font-awesome', name: 'envelope' }}
-                        value={email}
-                        onChangeText={e => setEmail(e)}
-                    />
+                <View style={styles.login}>
+                    <View>
+                        <Input
+                            placeholder='Email'
+                            leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'gray' }}
+                            value={email}
+                            onChangeText={e => setEmail(e)}
+                        />
+                    </View>
+                    <View style={{ marginTop: 30 }}>
+                        <Input
+                            placeholder="Password"
+                            leftIcon={{ type: 'font-awesome', name: 'lock', color: 'gray' }}
+                            secureTextEntry={true}
+                            value={senha}
+                            onChangeText={e => setSenha(e)}
+                        />
+                    </View>
                 </View>
-                <View style={{ marginTop: 30 }}>
-                    <Input
-                        placeholder="Password"
-                        leftIcon={{ type: 'font-awesome', name: 'lock' }}
-                        secureTextEntry={true}
-                        value={senha}
-                        onChangeText={e => setSenha(e)}
-                    />
-                </View>
-            </View>
-            <View style={styles.inputs}>
-                <View>
-                    <Button
-                        title="Entrar"
-                        onPress={() => validation()}
-                    />
-                </View>
-                <View style={{ marginTop: 30 }}>
-                    <Button
-                        title="Cadastrar-se"
-                        onPress={() => navigateToNewUser()}
-                    />
+                <View style={styles.inputs}>
+                    <View>
+                        <Button
+                            title="Entrar"
+                            onPress={() => validation()}
+                        />
+                    </View>
+                    <View style={{ marginTop: 30 }}>
+                        <Button
+                            title="Cadastrar-se"
+                            onPress={() => navigateToNewUser()}
+                        />
+                    </View>
                 </View>
             </View>
         </View>

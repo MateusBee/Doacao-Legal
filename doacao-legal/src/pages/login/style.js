@@ -4,9 +4,15 @@ import Constants from 'expo-constants';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFF',
+        // backgroundColor: '#FFF',
         paddingHorizontal: 24,
         paddingTop: Constants.statusBarHeight + 20
+    },
+
+    data: {
+        padding: 24,
+        borderRadius: 8,
+        backgroundColor: '#FFF',
     },
 
     title: {
@@ -15,12 +21,14 @@ export default StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center'
     },
+
     login: {
         padding: 24,
         borderRadius: 8,
         marginBottom: 16,
         marginTop: 100,
     },
+
     inputs: {
         marginLeft: 30,
         marginRight: 30
