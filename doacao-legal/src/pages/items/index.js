@@ -16,6 +16,10 @@ function Items(){
 
     const navigation = useNavigation();
 
+    function navigateToDetail(item) {
+        navigation.navigate('Detail', { item });
+    }
+
     async function loadItems() {
         if(loading) {
             return;
@@ -68,7 +72,7 @@ function Items(){
 
                         <TouchableOpacity
                             style={styles.detailsButton}
-                            // onPress={() => navigateToDetail(incident)}
+                            onPress={() => navigateToDetail(item)}
                         >
                             <Text style={styles.dateilsButtonText}>Ver mais detalhes</Text>
                             <Feather name="arrow-right" size={16} color="#E02041"/>

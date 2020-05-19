@@ -15,7 +15,6 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
 
-
     title: {
         fontSize: 30,
         marginBottom: 16,
@@ -24,30 +23,36 @@ export default StyleSheet.create({
         fontWeight: 'bold',
     },
 
-    data: {
+    user: {
+        marginTop: 15
+    },
+
+    subtitle: {
+        fontSize: 17,
+        color: '#13131a',
+        fontWeight: 'bold',
+        // alignItems: 'center'
+        textAlign: 'center',
+        marginBottom: 10
+    },
+
+    item: {
         padding: 24,
         borderRadius: 8,
         backgroundColor: '#FFF',
-        marginBottom: 10,
+        marginBottom: 16,
     },
 
-    edit: {
-        position: 'absolute',
-        alignSelf: 'flex-end',
-        right: 15,
-        top: 15,
-    },
-
-    userProperty: {
+    itemProperty: {
         fontSize: 14,
         color: '#41414d',
         fontWeight: 'bold',
     },
 
-    userValue: {
+    itemValue: {
         marginTop: 8,
         fontSize: 15,
-        marginBottom: 14,
+        marginBottom: 24,
         color: '#737380',
     },
 
@@ -56,16 +61,17 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
 
-    signOutButton: {
-        left: 5,
+    actionsButton: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
+        marginBottom: 10,
     },
 
-    signOutButtonText: {
-        left: 20,
+    backButtonText: {
         color: '#E02041',
         fontSize: 15,
         fontWeight: 'bold',
-    },
+        marginLeft: 10,
+    }
 });

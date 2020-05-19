@@ -65,38 +65,38 @@ function Profile(){
 
                     <View style={styles.data}>
                         <View style={styles.address}>
+                            
                             <View>
-                                <Text style={styles.userProperty}>Cidade: </Text>
-                                <Text style={styles.userValue}>{user.cidade}</Text>
+                                <View>
+                                    <Text style={styles.userProperty}>Cidade: </Text>
+                                    <Text style={styles.userValue}>{user.cidade}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.userProperty}>Bairro: </Text>
+                                    <Text style={styles.userValue}>{user.bairro}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.userProperty}>Número: </Text>
+                                    <Text style={styles.userValue}>{user.numero}</Text>
+                                </View>
                             </View>
-                            <View style={styles.rigthData}>
-                                <Text style={styles.userProperty}>CEP: </Text>
-                                <Text style={styles.userValue}>{user.cep}</Text>
-                            </View>
-                        </View>
 
-                        <View style={styles.address}>
                             <View>
-                                <Text style={styles.userProperty}>Bairro: </Text>
-                                <Text style={styles.userValue}>{user.bairro}</Text>
+                                <View>
+                                    <Text style={styles.userProperty}>CEP: </Text>
+                                    <Text style={styles.userValue}>{user.cep}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.userProperty}>Rua: </Text>
+                                    <Text style={styles.userValue}>{user.rua}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.userProperty}>UF: </Text>
+                                    <Text style={styles.userValue}>{user.uf}</Text>
+                                </View>
                             </View>
-                            <View style={styles.rigthData}>
-                                <Text style={styles.userProperty}>Rua: </Text>
-                                <Text style={styles.userValue}>{user.rua}</Text>
-                            </View>
-                        </View>
 
-                        <View style={styles.address}>
-                            <View>
-                                <Text style={styles.userProperty}>Número: </Text>
-                                <Text style={styles.userValue}>{user.numero}</Text>
-                            </View>
-                            <View style={{ right: 80 }}>
-                                <Text style={styles.userProperty}>UF: </Text>
-                                <Text style={styles.userValue}>{user.uf}</Text>
-                            </View>
                         </View>
-
                     </View>
 
                     <TouchableOpacity

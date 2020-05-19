@@ -27,6 +27,8 @@ routes.post('/user', celebrate({ // validação de body, creação de usuário
     })
 }), userController.create);
 
+routes.get('/user', userController.fetch);
+
 routes.post('/login', sessionControler.create);
 
 routes.post('/item', itemController.create);

@@ -3,6 +3,29 @@ const crypto = require('crypto');
 const connection = require('../database/connection');
 
 module.exports = {
+
+    async fetch(request, response) {
+        const user_id = request.headers.authorization;
+
+        const [user] = await connection('user')
+            .join('address', 'address.user_id', '=', 'user.id')
+            .where('user.id', user_id)
+            .select([
+                'user.id',
+                'user.name',
+                'user.email',
+                'user.telefone',
+                
+                'address.cep',
+                'address.cidade',
+                'address.rua',
+                'address.bairro',
+                'address.numero',
+                'address.uf'
+            ])
+
+        return response.json(user);
+    },
     
     async create(request, response) { //create an user
 
