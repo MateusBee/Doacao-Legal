@@ -10,5 +10,5 @@ app.use(express.json()); //defino que vou reseber dados no formato json
 app.use(errors());
 app.use(routes); //tenho acesso as rotas do arquivo routes
 
-app.listen(3333);
+app.listen(8080);
 
