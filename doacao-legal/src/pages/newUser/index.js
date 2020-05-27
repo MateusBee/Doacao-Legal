@@ -3,29 +3,86 @@ import { useNavigation } from '@react-navigation/native'
 import { Alert, Text, View, ScrollView } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 
-
-
+import api from '../../service/api';
 
 import styles from './style';
 
 function NewUser() {
 
-    const [nome, setnome] = useState('');
-    const [email, setemail] = useState('');
-    const [senha, setsenha] = useState('');
-    const [telefone, settelefone] = useState('');
-    const [cep, setcep] = useState('');
-    const [cidade, setcidade] = useState('');
-    const [bairro, setbairro] = useState('');
-    const [rua, setrua] = useState('');
-    const [numero, setnumero] = useState('');
-    const [uf, setuf] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confSenha, setConfSenha] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [cep, setCep] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [bairro, setBairro] = useState('');
+    const [rua, setRua] = useState('');
+    const [numero, setNumero] = useState('');
+    const [uf, setUf] = useState('');
 
     const navigation = useNavigation();
 
 
+    function goBack() {
+        navigation.goBack();
+    }
+
+    function validPassword() {
+        return Alert.alert(
+            'Ops!',
+            'Senhas diferentes digite novamente!',
+            [
+                { text: 'OK' },
+            ],
+            { cancelable: false }
+        )
+    }
+
+    function creating(titulo, mensagem) {
+        return Alert.alert(
+            `${titulo}!`,
+            `${mensagem}!`,
+            [
+                { text: 'OK' },
+            ],
+            { cancelable: false }
+        )
+    }
 
 
+
+    async function save() {
+        const data = {
+            name,
+            email,
+            senha,
+            telefone,
+            cep,
+            cidade,
+            bairro,
+            rua,
+            numero,
+            uf
+        }
+
+        if (senha != confSenha) {
+            validPassword();
+            return;
+        }
+
+        try {
+            await api.post('user', data);
+            creating('Sucesso', 'Usuario criado com sucesso');
+
+        } catch {
+            creating('Ops', 'Falha ao criar usuario, Verifique os campos');
+        }
+
+
+
+
+    }
 
     return (
         <ScrollView>
@@ -42,26 +99,42 @@ function NewUser() {
                         <View>
                             <Input
                                 placeholder='Nome'
-                            // leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'gray' }}
-                            // value={email}
-                            // onChangeText={e => setEmail(e)}
+                                // leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'gray' }}
+                                value={name}
+                                onChangeText={e => setName(e)}
                             />
                         </View>
                         <View>
                             <Input
                                 placeholder='Email'
+                                value={email}
+                                onChangeText={e => setEmail(e)}
 
                             />
                         </View>
                         <View>
                             <Input
                                 placeholder='Senha'
+                                secureTextEntry={true}
+                                value={senha}
+                                onChangeText={e => setSenha(e)}
+
+                            />
+                        </View>
+                        <View>
+                            <Input
+                                placeholder='Confirmar Senha'
+                                secureTextEntry={true}
+                                value={confSenha}
+                                onChangeText={e => setConfSenha(e)}
 
                             />
                         </View>
                         <View>
                             <Input
                                 placeholder='Telefone'
+                                value={telefone}
+                                onChangeText={e => setTelefone(e)}
 
                             />
                         </View>
@@ -76,24 +149,32 @@ function NewUser() {
                         <View>
                             <Input
                                 placeholder='CEP'
+                                value={cep}
+                                onChangeText={e => setCep(e)}
 
                             />
                         </View>
                         <View>
                             <Input
                                 placeholder='Cidade'
+                                value={cidade}
+                                onChangeText={e => setCidade(e)}
 
                             />
                         </View>
                         <View>
                             <Input
                                 placeholder='Bairro'
+                                value={bairro}
+                                onChangeText={e => setBairro(e)}
 
                             />
                         </View>
                         <View>
                             <Input
                                 placeholder='Rua'
+                                value={rua}
+                                onChangeText={e => setRua(e)}
 
                             />
                         </View>
@@ -103,11 +184,15 @@ function NewUser() {
                             <View style={styles.info}>
                                 <Input
                                     placeholder='Numero'
+                                    value={numero}
+                                    onChangeText={e => setNumero(e)}
 
                                 />
                                 <Input
                                     // style={{marginRight:90}}
                                     placeholder='UF'
+                                    value={uf}
+                                    onChangeText={e => setUf(e)}
 
                                 />
                             </View>
@@ -122,13 +207,13 @@ function NewUser() {
                     <View>
                         <Button
                             title="Cadastrar-se"
-                        // onPress={() => validation()}
+                            onPress={save}
                         />
                     </View>
                     <View style={{ marginTop: 30 }}>
                         <Button
                             title="Cancelar"
-                        // onPress={() => navigateToNewUser()}
+                            onPress={goBack}
                         />
                     </View>
 
