@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -13,6 +13,10 @@ function Detail() {
 
     function goBack() {
         navigation.goBack();
+    }
+
+    function sendWhatApp(){
+        Linking.openURL(`whatsapp://send?phone=554999724833`);
     }
 
     return (
@@ -95,9 +99,12 @@ function Detail() {
                         <Text style={styles.backButtonText}>Voltar</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.actionsButton}
+                        onPress={sendWhatApp}
+                    >
+                        <Text style={styles.whatsapp}>WhatsApp</Text>
                         <Icon name="whatsapp" size={20} color="green"/>
-                        {/* <Text style={styles.signOutButtonText}>Sair</Text> */}
                     </TouchableOpacity>
                 </View>
 

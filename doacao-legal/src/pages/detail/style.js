@@ -73,5 +73,12 @@ export default StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold',
         marginLeft: 10,
+    },
+
+    whatsapp: {
+        color: 'green',
+        fontSize: 15,
+        fontWeight: 'bold',
+        marginRight: 10,
     }
 });
