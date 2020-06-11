@@ -9,8 +9,6 @@ export default StyleSheet.create({
     },
 
     header: {
-        // flexDirection: 'row',
-        // justifyContent: 'space-between',
         alignItems: 'center',
     },
 
@@ -38,10 +36,29 @@ export default StyleSheet.create({
         marginBottom: 10
     },
 
+    uploadImage: {
+        padding: 15,
+        borderRadius: 8,
+        backgroundColor: '#FFF',
+        marginBottom: 16,
+    },
+
+    removeButton: {
+        marginTop: 10,
+        alignItems: 'center',
+    },
+
+    remove: {
+        color: '#E02041',
+        fontSize: 15,
+        fontWeight: 'bold',
+    },
+
     buttons: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginBottom: 16,
     },
 
     button: {
@@ -51,7 +68,7 @@ export default StyleSheet.create({
 
     cancel: {
         borderRadius: 4,
-        backgroundColor: 'red'
+        backgroundColor: 'gray'
     },
 
     save: {

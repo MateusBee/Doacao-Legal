@@ -210,7 +210,7 @@ function NewUser() {
                             onPress={save}
                         />
                     </View>
-                    <View style={{ marginTop: 30 }}>
+                    <View style={{ marginTop: 30, marginBottom: 20 }}>
                         <Button
                             title="Cancelar"
                             onPress={goBack}

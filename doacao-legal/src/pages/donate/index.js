@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, View, FlatList, Text, TouchableOpacity, AsyncStorage } from 'react-native';
+import { Alert, View, FlatList, Text, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -95,6 +95,8 @@ function Donate(){
 
                         <Text style={styles.itemProperty}>ITEM: </Text>
                         <Text style={styles.itemValue}>{item.item}</Text>
+
+                        <Image key={item.image_id} source={{ uri: item.uri.split(',')[0] }} style={{ width: 265, height: 400, marginBottom: 10 }}/>
 
                         <Text style={styles.itemProperty}>DESCRIÇÃO: </Text>
                         <Text style={styles.itemValue}>{item.descricao}</Text>

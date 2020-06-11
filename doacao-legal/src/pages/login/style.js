@@ -9,6 +9,12 @@ export default StyleSheet.create({
         paddingTop: Constants.statusBarHeight + 20
     },
 
+    header: {
+        marginTop: 10,
+        marginBottom: 30,
+        alignItems: 'center',
+    },
+
     data: {
         padding: 24,
         borderRadius: 8,
@@ -26,7 +32,7 @@ export default StyleSheet.create({
         padding: 24,
         borderRadius: 8,
         marginBottom: 16,
-        marginTop: 100,
+        marginTop: 10,
     },
 
     inputs: {

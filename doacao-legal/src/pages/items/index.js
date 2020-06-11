@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native'
-import { View, FlatList, Text, TouchableOpacity } from 'react-native';
+import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native';
 
 import { Feather } from '@expo/vector-icons';
 
@@ -65,6 +65,8 @@ function Items(){
                     <View style={styles.item}>
                         <Text style={styles.itemProperty}>ITEM: </Text>
                         <Text style={styles.itemValue}>{item.item}</Text>
+
+                        <Image key={item.image_id} source={{ uri: item.uri.split(',')[0] }} style={{ width: 265, height: 400, marginBottom: 10 }}/>
 
                         <Text style={styles.itemProperty}>DESCRIÇÃO: </Text>
                         <Text style={styles.itemValue}>{item.descricao}</Text>

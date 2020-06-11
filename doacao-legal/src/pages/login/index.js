@@ -52,14 +52,12 @@ function Login(){
             showsVerticalScrollIndicator={false}
         >
             <View style={styles.container}>
-                <View style={styles.data}>
-                    <View>
-                        <View>
-                            <Text style={styles.title}>Bem vindo!</Text>
-                            <Text style={styles.title}>App Doação Legal</Text>
-                        </View>
-                    </View>
+                <View style={styles.header}>
+                    <Text style={styles.title}>Bem vindo!</Text>
+                    <Text style={styles.title}>App Doação Legal</Text>
+                </View>
 
+                <View style={styles.data}>
                     <View style={styles.login}>
                         <View>
                             <Input

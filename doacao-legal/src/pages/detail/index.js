@@ -1,15 +1,18 @@
-import React from 'react';
-import { Text, View, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './style';
 
 function Detail() {
+    const [photos, setPhotos] = useState([]);
+
     const navigation = useNavigation();
     const route = useRoute();
 
     const item = route.params.item;
+    // setPhotos(item.uri.split(','));
 
     function goBack() {
         navigation.goBack();
@@ -35,6 +38,14 @@ function Detail() {
                     <Text style={styles.itemProperty}>DESCRIÇÃO: </Text>
                     <Text style={styles.itemValue}>{item.descricao}</Text>
                 </View>
+
+                {
+                    item.uri.split(',').map((photo, index) => (
+                        <View key={index} style={styles.item}>
+                            <Image source={{ uri: photo }} style={{ width: 265, height: 400 }}/>
+                        </View>
+                    ))
+                }
 
                 <View style={styles.item}>
                     <View>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, Text, View, AsyncStorage } from 'react-native';
+import { Alert, Text, Image, View, TouchableOpacity, AsyncStorage, ScrollView } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { Button } from 'react-native-paper';
 // import { TextInput } from 'react-native-paper';
 import Reinput from 'reinput'
@@ -11,6 +12,9 @@ import styles from './style'
 function NewItem(){
     const [item, setItem] = useState('');
     const [descricao, setDescricao] = useState('');
+    const [photo, setPhoto] = useState(null);
+    const [photos, setPhotos] = useState([]);
+    const [key, setKey] = useState(0);
 
     function invalidItem(title, message){
         return Alert.alert(
@@ -26,10 +30,13 @@ function NewItem(){
     function clear() {
         setItem(' ');
         setDescricao(' ');
+        setKey(0);
+        setPhoto(null);
+        setPhotos([]);
     }
 
     async function save() {
-        const data = { item, descricao };
+        const data = { item, descricao, photos };
         const user_Id = await AsyncStorage.getItem('id');
 
         if(item == "" || descricao == "") {
@@ -54,8 +61,31 @@ function NewItem(){
         }
     }
 
+    async function handleChoosePhone() {
+        const options = {
+            noData: true,
+        };
+
+        const response = await ImagePicker.launchImageLibraryAsync(options);
+        if(response){
+            const data = { uri: response.uri, id: key}
+            setPhotos(photos.concat(data));
+            setPhoto(true);
+            setKey(key + 1);
+            // console.log("Photos: ", photos[0]);
+        }
+    }
+
+    function removeImage(id) {
+        const newArray = photos.filter(image => image.id != id);
+        setPhotos(newArray);
+    }
+
     return (
-        <View style={styles.container}>
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+        >
+            <View style={styles.container}>
                 <View style={styles.header}>
                     <Text style={styles.title}>Novo item para doação</Text>
                 </View>
@@ -84,6 +114,27 @@ function NewItem(){
                     </View>
 
                 </View>
+
+                {
+                    photo && photos.map(image =>
+                        (
+                            <View key={image.id} style={styles.uploadImage}>
+                                <Image key={image.id} source={{ uri: image.uri }} style={{ width: 280, height: 400 }}/>
+                                
+                                <TouchableOpacity
+                                    style={styles.removeButton}
+                                    onPress={() => removeImage(image.id)}
+                                >
+                                    <Text style={styles.remove}>Remover imagem</Text>
+                                </TouchableOpacity>
+                            </View>
+                        ))
+                }
+
+                <View style={styles.uploadImage}>
+                    <Button icon='file-upload' color='black'  mode='text' onPress={handleChoosePhone} >Selecionar imagem</Button> 
+                </View>
+
                 <View style={styles.buttons}>
 
                     <View style={styles.button}>
@@ -95,7 +146,8 @@ function NewItem(){
                     </View>
 
                 </View>
-        </View>
+            </View>
+        </ScrollView>
     )
 }
 
