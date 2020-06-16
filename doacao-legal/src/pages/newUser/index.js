@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native'
 import { Alert, Text, View, ScrollView } from 'react-native';
 import { Input, Button } from 'react-native-elements';
+import Reinput from 'reinput';
 
 import api from '../../service/api';
 
@@ -97,24 +98,27 @@ function NewUser() {
                         <Text style={styles.subtitle}>Dados Pessoais</Text>
 
                         <View>
-                            <Input
-                                placeholder='Nome'
+                            <Reinput
+                                label='Nome'
+                                activeColor='#00ff7f'
                                 // leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'gray' }}
                                 value={name}
                                 onChangeText={e => setName(e)}
                             />
                         </View>
                         <View>
-                            <Input
-                                placeholder='Email'
+                            <Reinput
+                                label='Email'
+                                activeColor='#00ff7f'
                                 value={email}
                                 onChangeText={e => setEmail(e)}
 
                             />
                         </View>
                         <View>
-                            <Input
-                                placeholder='Senha'
+                            <Reinput
+                                label='Senha'
+                                activeColor='#00ff7f'
                                 secureTextEntry={true}
                                 value={senha}
                                 onChangeText={e => setSenha(e)}
@@ -122,8 +126,9 @@ function NewUser() {
                             />
                         </View>
                         <View>
-                            <Input
-                                placeholder='Confirmar Senha'
+                            <Reinput
+                                label='Confirmar Senha'
+                                activeColor='#00ff7f'
                                 secureTextEntry={true}
                                 value={confSenha}
                                 onChangeText={e => setConfSenha(e)}
@@ -131,8 +136,9 @@ function NewUser() {
                             />
                         </View>
                         <View>
-                            <Input
-                                placeholder='Telefone'
+                            <Reinput
+                                label='Telefone'
+                                activeColor='#00ff7f'
                                 value={telefone}
                                 onChangeText={e => setTelefone(e)}
 
@@ -147,32 +153,36 @@ function NewUser() {
                     <View>
                         <Text style={styles.subtitle}>Dados de Endereço</Text>
                         <View>
-                            <Input
-                                placeholder='CEP'
+                            <Reinput
+                                label='CEP'
+                                activeColor='#00ff7f'
                                 value={cep}
                                 onChangeText={e => setCep(e)}
 
                             />
                         </View>
                         <View>
-                            <Input
-                                placeholder='Cidade'
+                            <Reinput
+                                label='Cidade'
+                                activeColor='#00ff7f'
                                 value={cidade}
                                 onChangeText={e => setCidade(e)}
 
                             />
                         </View>
                         <View>
-                            <Input
-                                placeholder='Bairro'
+                            <Reinput
+                                label='Bairro'
+                                activeColor='#00ff7f'
                                 value={bairro}
                                 onChangeText={e => setBairro(e)}
 
                             />
                         </View>
                         <View>
-                            <Input
-                                placeholder='Rua'
+                            <Reinput
+                                label='Rua'
+                                activeColor='#00ff7f'
                                 value={rua}
                                 onChangeText={e => setRua(e)}
 
@@ -182,15 +192,19 @@ function NewUser() {
                         <View >
 
                             <View style={styles.info}>
-                                <Input
-                                    placeholder='Numero'
+                                <Reinput
+                                    label='Numero'
+                                    activeColor='#00ff7f'
                                     value={numero}
                                     onChangeText={e => setNumero(e)}
 
                                 />
-                                <Input
+                                <Reinput
                                     // style={{marginRight:90}}
-                                    placeholder='UF'
+                                    label='UF'
+                                    maxHeight={2}
+                                    //minHeight={2}
+                                    activeColor='#00ff7f'
                                     value={uf}
                                     onChangeText={e => setUf(e)}
 
@@ -203,7 +217,7 @@ function NewUser() {
 
 
                 </View>
-                <View style={styles.inputs}>
+                <View style={styles.Reinputs}>
                     <View>
                         <Button
                             title="Cadastrar-se"

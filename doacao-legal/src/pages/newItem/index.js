@@ -95,7 +95,7 @@ function NewItem(){
                     <View>
                         <Reinput
                             label='Item'
-                            activeColor='#e91e63'
+                            activeColor='#00ff7f'
                             fontSize={18}
                             value={item}
                             onChangeText={e => setItem(e)}
@@ -105,7 +105,7 @@ function NewItem(){
                     <View>
                         <Reinput
                             label='Descrição'
-                            activeColor='#e91e63'
+                            activeColor='#00ff7f'
                             fontSize={18}
                             multiline={true}
                             value={descricao}

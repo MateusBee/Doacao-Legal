@@ -62,7 +62,7 @@ export default StyleSheet.create({
     },
 
     dateilsButtonText: {
-        color: '#E02041',
+        color: '#00ff7f',
         fontSize: 15,
         fontWeight: 'bold',
     },

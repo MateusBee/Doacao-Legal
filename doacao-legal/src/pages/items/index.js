@@ -77,7 +77,7 @@ function Items(){
                             onPress={() => navigateToDetail(item)}
                         >
                             <Text style={styles.dateilsButtonText}>Ver mais detalhes</Text>
-                            <Feather name="arrow-right" size={16} color="#E02041"/>
+                            <Feather name="arrow-right" size={16} color="#00ff7f"/>
                         </TouchableOpacity>
                     </View>
                 )}
