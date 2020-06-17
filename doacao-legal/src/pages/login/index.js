@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native'
-import { Alert, Text, View, ScrollView, AsyncStorage } from 'react-native';
+import { Alert, Text, View, ScrollView, AsyncStorage, TouchableOpacity } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 
-import api from '../../service/api'
+import { Feather } from '@expo/vector-icons';
+
+import api from '../../service/api';
 
 // import { Gmail } from 'react-native-vector-icons/FontAwesome';
 
@@ -17,6 +19,10 @@ function Login(){
 
     function navigateToNewUser(){
         navigation.navigate('NewUser');
+    }
+
+    function navigateToRecover(){
+        navigation.navigate('Recover');
     }
 
     function invalidUser(){
@@ -90,6 +96,14 @@ function Login(){
                                 onPress={() => navigateToNewUser()}
                             />
                         </View>
+
+                        <TouchableOpacity
+                            style={styles.recoverButton}
+                            onPress={() => navigateToRecover()}
+                        >
+                            <Text style={styles.recoverButtonText}>Esqueci minha senha</Text>
+                            <Feather name="arrow-right" size={16} color="black"/>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

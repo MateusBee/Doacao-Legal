@@ -28,6 +28,7 @@ routes.post('/user', celebrate({ // validação de body, creação de usuário
 }), userController.create);
 
 routes.get('/user', userController.fetch);
+routes.get('/recover', userController.recover);
 
 routes.post('/login', sessionControler.create);
 

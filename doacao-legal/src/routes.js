@@ -7,7 +7,8 @@ const AppStack = createStackNavigator();
 import Login from './pages/login';
 import NewUser from './pages/newUser';
 import Detail from './pages/detail';
-import BottomNavigator from './components/tabNavigator/render'
+import Recover from './pages/recover';
+import BottomNavigator from './components/tabNavigator/render';
 
 function Routes(){
     return (
@@ -17,6 +18,7 @@ function Routes(){
                 <AppStack.Screen name="Login" component={Login}/>
                 <AppStack.Screen name="NewUser" component={NewUser}/>
                 <AppStack.Screen name="Detail" component={Detail}/>
+                <AppStack.Screen name="Recover" component={Recover}/>
                 <AppStack.Screen name="BottomNavigator" component={BottomNavigator}/>
             </AppStack.Navigator>
 

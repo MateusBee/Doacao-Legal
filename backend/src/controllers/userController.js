@@ -53,5 +53,23 @@ module.exports = {
         });
 
         return response.json({ id });
+    },
+
+    async recover(request, response) {
+        const email = request.headers.email;
+
+        const [user] = await connection('user')
+            .where('email', email)
+            .select([
+                'user.name',
+                'user.senha'
+            ]);
+
+        if(!user){
+            console.log('Caiu aqui');
+            return response.status(404).json({ error: 'Email not found!' });
+        }
+
+        return response.json(user);
     }
 }
