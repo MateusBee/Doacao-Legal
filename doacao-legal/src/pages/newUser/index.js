@@ -1,32 +1,40 @@
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native'
-import { Alert, Text, View, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { Alert, Text, View, ScrollView, AsyncStorage } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import Reinput from 'reinput';
 
+import axios from 'axios';
 import api from '../../service/api';
 
 import styles from './style';
 
 function NewUser() {
-
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [newUser, setNewUser] = useState(true);
+    const [user, setUser] = useState({});
     const [confSenha, setConfSenha] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [cep, setCep] = useState('');
-    const [cidade, setCidade] = useState('');
-    const [bairro, setBairro] = useState('');
-    const [rua, setRua] = useState('');
-    const [numero, setNumero] = useState('');
-    const [uf, setUf] = useState('');
 
     const navigation = useNavigation();
+    const route = useRoute();
 
 
-    function goBack() {
-        navigation.goBack();
+    function redirect() {
+        if(newUser){
+            navigation.navigate('Login');
+        } else {
+            navigation.navigate('BottomNavigator', { user });
+        }
+    }
+
+    async function getParams() {
+        const user_Id = route.params.user_Id;
+        
+        if(user_Id !== null) {
+            const user = route.params.user;
+            setUser({ ...user })
+            setConfSenha(user.senha);
+            setNewUser(false);
+        }
     }
 
     function validPassword() {
@@ -51,46 +59,79 @@ function NewUser() {
         )
     }
 
-
-
-    async function save() {
-        const data = {
-            name,
-            email,
-            senha,
-            telefone,
-            cep,
-            cidade,
-            bairro,
-            rua,
-            numero,
-            uf
+    function updateFieldTelefone(e) {
+        if(e.length == 1 && e[0] != '(') {
+            setUser({ ...user, telefone: '('.concat(e) });
+            return;
         }
 
-        if (senha != confSenha) {
+        if(e.length == 3 && e.length > user.telefone.length) {
+            setUser({ ...user, telefone: e.concat(') ') });
+            return;
+        }
+
+        setUser({ ...user, telefone: e });
+    }
+
+    async function updateFieldCep(e) {
+        setUser({ ...user, cep: e });
+
+        if(e.replace('-', '').length == 8){
+            await axios.get(`https://viacep.com.br/ws/${e}/json/`)
+                .then(response => {
+                    const data = { ...response.data }
+
+                    if(data.erro) {
+                        creating('Ops', 'CEP inválido, Por favor digite um CEP valido');
+                        return;
+                    }
+
+                    setUser({ ...user, cep: data.cep, cidade: data.localidade, uf: data.uf, bairro: data.bairro, rua: data.logradouro });
+                })
+        }    
+    }
+
+    async function save() {
+        const user_Id = await AsyncStorage.getItem('id');
+        const data = {
+            ...user,
+            telefone: user.telefone.replace(/\D/g, '')
+        }
+
+        if (user.senha != confSenha) {
             validPassword();
             return;
         }
 
+        const mother = newUser ? 'post' : 'put'
+
         try {
-            await api.post('user', data);
-            creating('Sucesso', 'Usuario criado com sucesso');
-
+            const message = newUser ? 'Usuário criado com sucesso' : 'Usuário editado com sucesso'
+            await api[mother]('user', data, newUser ? null : {
+                headers: {
+                    Authorization: user_Id
+                }
+            });
+            creating('Sucesso', message);
+            redirect();
         } catch {
-            creating('Ops', 'Falha ao criar usuario, Verifique os campos');
+            const message = newUser ? 'Falha ao criar usuário' : 'Falha ao editar usuário'
+            creating('Ops', `${message}, Verifique os campos`);
         }
-
-
-
-
     }
 
+    useEffect(() => {
+        getParams();
+    }, [])
+
     return (
-        <ScrollView>
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+        >
             <View style={styles.container}>
 
                 <View>
-                    <Text style={styles.title}>Cadastro de Usuário</Text>
+                    <Text style={styles.title}>{ newUser ? 'Cadastro de Usuário' : `Edição do usuário ${user.name}` }</Text>
                 </View>
                 <View style={styles.data}>
 
@@ -99,35 +140,35 @@ function NewUser() {
 
                         <View>
                             <Reinput
-                                label='Nome'
+                                label='Nome*'
                                 activeColor='#00ff7f'
                                 // leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'gray' }}
-                                value={name}
-                                onChangeText={e => setName(e)}
+                                value={user.name}
+                                onChangeText={e => setUser({ ...user, name: e })}
                             />
                         </View>
                         <View>
                             <Reinput
-                                label='Email'
+                                label='Email*'
                                 activeColor='#00ff7f'
-                                value={email}
-                                onChangeText={e => setEmail(e)}
+                                value={user.email}
+                                onChangeText={e => setUser({ ...user, email: e })}
 
                             />
                         </View>
                         <View>
                             <Reinput
-                                label='Senha'
+                                label='Senha*'
                                 activeColor='#00ff7f'
                                 secureTextEntry={true}
-                                value={senha}
-                                onChangeText={e => setSenha(e)}
+                                value={user.senha}
+                                onChangeText={e => setUser({ ...user, senha: e })}
 
                             />
                         </View>
                         <View>
                             <Reinput
-                                label='Confirmar Senha'
+                                label='Confirmar Senha*'
                                 activeColor='#00ff7f'
                                 secureTextEntry={true}
                                 value={confSenha}
@@ -137,10 +178,10 @@ function NewUser() {
                         </View>
                         <View>
                             <Reinput
-                                label='Telefone'
+                                label='Telefone*'
                                 activeColor='#00ff7f'
-                                value={telefone}
-                                onChangeText={e => setTelefone(e)}
+                                value={user.telefone}
+                                onChangeText={e => updateFieldTelefone(e)}
 
                             />
                         </View>
@@ -154,62 +195,60 @@ function NewUser() {
                         <Text style={styles.subtitle}>Dados de Endereço</Text>
                         <View>
                             <Reinput
-                                label='CEP'
+                                label='CEP*'
                                 activeColor='#00ff7f'
-                                value={cep}
-                                onChangeText={e => setCep(e)}
+                                type='number'
+                                value={user.cep}
+                                onChangeText={e => updateFieldCep(e)}
 
                             />
                         </View>
                         <View>
                             <Reinput
-                                label='Cidade'
+                                label='Cidade*'
                                 activeColor='#00ff7f'
-                                value={cidade}
-                                onChangeText={e => setCidade(e)}
+                                value={user.cidade}
+                                onChangeText={e => setUser({ ...user, cidade: e })}
 
                             />
                         </View>
                         <View>
                             <Reinput
-                                label='Bairro'
+                                label='Bairro*'
                                 activeColor='#00ff7f'
-                                value={bairro}
-                                onChangeText={e => setBairro(e)}
+                                value={user.bairro}
+                                onChangeText={e => setUser({ ...user, bairro: e })}
 
                             />
                         </View>
                         <View>
                             <Reinput
-                                label='Rua'
+                                label='Rua*'
                                 activeColor='#00ff7f'
-                                value={rua}
-                                onChangeText={e => setRua(e)}
+                                value={user.rua}
+                                onChangeText={e => setUser({ ...user, rua: e })}
 
                             />
                         </View>
 
-                        <View >
+                        <View style={styles.info}>
 
-                            <View style={styles.info}>
-                                <Reinput
-                                    label='Numero'
-                                    activeColor='#00ff7f'
-                                    value={numero}
-                                    onChangeText={e => setNumero(e)}
-
-                                />
-                                <Reinput
-                                    // style={{marginRight:90}}
-                                    label='UF'
-                                    maxHeight={2}
-                                    //minHeight={2}
-                                    activeColor='#00ff7f'
-                                    value={uf}
-                                    onChangeText={e => setUf(e)}
-
-                                />
-                            </View>
+                            <Reinput
+                                style={{ marginRight: 30 }}
+                                label='Numero*'
+                                activeColor='#00ff7f'
+                                value={user.numero}
+                                onChangeText={e => setUser({ ...user, numero: e })}
+                            />
+                            <Reinput
+                                // style={{marginRight:90}}
+                                label='UF*'
+                                // maxHeight={2}
+                                //minHeight={2}
+                                activeColor='#00ff7f'
+                                value={user.uf}
+                                onChangeText={e => setUser({ ...user, uf: e })}
+                            />
 
                         </View>
 
@@ -218,16 +257,16 @@ function NewUser() {
 
                 </View>
                 <View style={styles.Reinputs}>
-                    <View>
+                    <View style={{ marginTop: 30 }}>
                         <Button
-                            title="Cadastrar-se"
+                            title={newUser ? 'Cadastrar-se' : 'Salvar alterações'}
                             onPress={save}
                         />
                     </View>
                     <View style={{ marginTop: 30, marginBottom: 20 }}>
                         <Button
                             title="Cancelar"
-                            onPress={goBack}
+                            onPress={redirect}
                         />
                     </View>
 

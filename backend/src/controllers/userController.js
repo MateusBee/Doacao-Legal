@@ -11,9 +11,9 @@ module.exports = {
             .join('address', 'address.user_id', '=', 'user.id')
             .where('user.id', user_id)
             .select([
-                'user.id',
                 'user.name',
                 'user.email',
+                'user.senha',
                 'user.telefone',
                 
                 'address.cep',
@@ -53,6 +53,37 @@ module.exports = {
         });
 
         return response.json({ id });
+    },
+
+    async put(request, response) {
+        const user_Id = request.headers.authorization;
+        const { name, email, senha, telefone, cidade, rua, bairro, numero, uf, cep } = request.body;
+
+        const trx = await connection.transaction();
+
+        await trx('user')
+            .where('id', user_Id)
+            .update({
+                name,
+                email,
+                senha,
+                telefone
+            });
+
+        await trx('address')
+            .where('user_id', user_Id)
+            .update({
+                cep,
+                cidade,
+                bairro,
+                rua,
+                numero,
+                uf
+            });
+
+        await trx.commit();
+
+        return response.json({ user_Id });
     },
 
     async recover(request, response) {

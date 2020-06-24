@@ -12,7 +12,22 @@ routes.get('/ping', async (request, response) => {
     return response.json('PONG');
 });
 
-routes.post('/user', celebrate({ // validação de body, creação de usuário
+routes.put('/user', celebrate({ // validação de body, edição de usuário
+    [Segments.BODY]: Joi.object().keys({
+        name: Joi.string().required(),
+        senha: Joi.string().required(),
+        email: Joi.string().required().email(),
+        telefone: Joi.string().required().min(9).max(11),
+        cep: Joi.string().required(),
+        cidade: Joi.string().required(),
+        bairro: Joi.string().required(),
+        rua: Joi.string().required(),
+        numero: Joi.string().required(),
+        uf: Joi.string().required().length(2),
+    })
+}), userController.put);
+
+routes.post('/user', celebrate({ // validação de body, criação de usuário
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
         senha: Joi.string().required(),

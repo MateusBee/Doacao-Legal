@@ -8,6 +8,7 @@ import Login from './pages/login';
 import NewUser from './pages/newUser';
 import Detail from './pages/detail';
 import Recover from './pages/recover';
+import Profile from './pages/profile';
 import BottomNavigator from './components/tabNavigator/render';
 
 function Routes(){
@@ -19,6 +20,7 @@ function Routes(){
                 <AppStack.Screen name="NewUser" component={NewUser}/>
                 <AppStack.Screen name="Detail" component={Detail}/>
                 <AppStack.Screen name="Recover" component={Recover}/>
+                <AppStack.Screen name="Profile" component={Profile}/>
                 <AppStack.Screen name="BottomNavigator" component={BottomNavigator}/>
             </AppStack.Navigator>
 

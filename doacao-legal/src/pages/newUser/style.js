@@ -26,9 +26,9 @@ export default StyleSheet.create({
     info: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: 153,
+        width: 160,
         alignItems: 'center',
-
+        paddingRight: 33,
     },
 
     inputs: {
@@ -42,13 +42,4 @@ export default StyleSheet.create({
         backgroundColor: '#FFF',
         marginTop:16,
     },
-
-
-    
-
-
-
-
-
-
 });

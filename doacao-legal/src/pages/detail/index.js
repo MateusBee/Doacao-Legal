@@ -19,7 +19,7 @@ function Detail() {
     }
 
     function sendWhatApp(){
-        Linking.openURL(`whatsapp://send?phone=554999724833`);
+        Linking.openURL(`whatsapp://send?phone=55${item.telefone}`);
     }
 
     return (

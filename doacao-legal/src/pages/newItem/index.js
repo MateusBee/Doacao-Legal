@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Alert, Text, Image, View, TouchableOpacity, AsyncStorage, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Button } from 'react-native-paper';
+import Canvas from 'react-native-canvas';
 // import { TextInput } from 'react-native-paper';
 import Reinput from 'reinput'
 
@@ -68,11 +69,12 @@ function NewItem(){
 
         const response = await ImagePicker.launchImageLibraryAsync(options);
         if(response){
-            const data = { uri: response.uri, id: key}
-            setPhotos(photos.concat(data));
-            setPhoto(true);
-            setKey(key + 1);
-            // console.log("Photos: ", photos[0]);
+            if(!response.cancelled) {
+                const data = { uri: response.uri, id: key}
+                setPhotos(photos.concat(data));
+                setPhoto(true);
+                setKey(key + 1);
+            }
         }
     }
 
@@ -131,9 +133,11 @@ function NewItem(){
                         ))
                 }
 
-                <View style={styles.uploadImage}>
-                    <Button icon='file-upload' color='black'  mode='text' onPress={handleChoosePhone} >Selecionar imagem</Button> 
-                </View>
+                { photos.length < 5 &&
+                    <View style={styles.uploadImage}>
+                        <Button icon='file-upload' color='black'  mode='text' onPress={handleChoosePhone} >Selecionar imagem</Button> 
+                    </View>
+                }
 
                 <View style={styles.buttons}>
 

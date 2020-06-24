@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, ScrollView, AsyncStorage, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import api from '../../service/api';
@@ -9,11 +9,18 @@ import styles from './style'
 
 function Profile(){
     const navigation = useNavigation();
+    const route = useRoute();
 
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({});
 
     function signOut() {
-        navigation.goBack();
+        AsyncStorage.clear();
+        navigation.navigate('Login');
+    }
+
+    async function navigateToEdit() {
+        const user_Id = await AsyncStorage.getItem('id');
+        navigation.navigate('NewUser', { user, user_Id });
     }
 
     async function getUserData() {
@@ -33,7 +40,7 @@ function Profile(){
 
     useEffect(() => {
         getUserData();
-    }, [])
+    }, [route.params])
 
 
     return (
@@ -49,6 +56,7 @@ function Profile(){
                     <View style={styles.data}>
                         <TouchableOpacity
                             style={styles.edit}
+                            onPress={navigateToEdit}
                         >
                             <Icon name="edit" size={20} color="green"/>
                         </TouchableOpacity>

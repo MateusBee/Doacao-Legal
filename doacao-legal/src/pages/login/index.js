@@ -18,7 +18,8 @@ function Login(){
     const navigation = useNavigation();
 
     function navigateToNewUser(){
-        navigation.navigate('NewUser');
+        AsyncStorage.clear();
+        navigation.navigate('NewUser', { user_Id: null });
     }
 
     function navigateToRecover(){
