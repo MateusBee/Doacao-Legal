@@ -61,5 +61,16 @@ export default StyleSheet.create({
         alignSelf: 'flex-end',
         right: 15,
         top: 15,
+    },
+
+    noItems: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center'
+    },
+
+    noItemsText: {
+        color: '#737380',
+        fontSize: 20,
     }
 });

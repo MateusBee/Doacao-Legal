@@ -103,6 +103,7 @@ module.exports = {
         }
 
         await connection('item').where('id', id).delete();
+        await connection('images').where('item_id', id).delete();
 
         return response.status(204).send();
     }

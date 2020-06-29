@@ -78,5 +78,11 @@
 	<string>Give doacao-legal periences permission to access your photos</string>
 	<key>NSRemindersUsageDescription</key>
 	<string>Allow doacao-legal to access your reminders</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>For choosing a photo.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>For taking a photo.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>For saving a photo.</string>
 </dict>
 </plist>

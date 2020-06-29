@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Alert, Text, Image, View, TouchableOpacity, AsyncStorage, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Button } from 'react-native-paper';
-import Canvas from 'react-native-canvas';
+import ReactLoading from 'react-loading';
+const Buffer = require('buffer/').Buffer;
 // import { TextInput } from 'react-native-paper';
 import Reinput from 'reinput'
 
+import axios from 'axios';
 import api from '../../service/api'
 
 import styles from './style'
@@ -14,6 +16,7 @@ function NewItem(){
     const [item, setItem] = useState('');
     const [descricao, setDescricao] = useState('');
     const [photo, setPhoto] = useState(null);
+    const [loadingPhoto, setloadingPhoto] = useState(true);
     const [photos, setPhotos] = useState([]);
     const [key, setKey] = useState(0);
 
@@ -70,12 +73,50 @@ function NewItem(){
         const response = await ImagePicker.launchImageLibraryAsync(options);
         if(response){
             if(!response.cancelled) {
-                const data = { uri: response.uri, id: key}
+                // const base64 = new Buffer(response.uri).toString("base64");
+                // console.log("\n\n", base64, "\n\n");
+
+                // const deBase64 = new Buffer(base64, "base64").toString("ascii");
+                // console.log("\n\n", deBase64, "\n\n");
+
+                const type = response.uri.split('/').pop();
+
+                const file = {
+                    uri: response.uri,
+                    type: `test/${type.split('.')[1]}`,
+                    name: `test.${type.split('.')[1]}`
+                }
+
+                setloadingPhoto(false);
+                // loadingImage();
+
+                const image = await handleUpload(file);
+                setloadingPhoto(true);
+
+                const data = { uri: image.url, id: key }
                 setPhotos(photos.concat(data));
                 setPhoto(true);
                 setKey(key + 1);
             }
         }
+    }
+
+    async function handleUpload(image) {
+        const data = new FormData();
+        data.append('file',image);
+        data.append('upload_preset','donationApp');
+        data.append("cloud_name","dd9mn3zj8");
+
+        // axios.post('https://api.cloudinary.com/v1_1/dd9mn3zj8/image/upload', data)
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data);
+        //     })
+
+        return await fetch("https://api.cloudinary.com/v1_1/dd9mn3zj8/image/upload", {
+            method:"post",
+            body:data
+        }).then(res => res.json());
     }
 
     function removeImage(id) {

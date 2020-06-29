@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { Text, View, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { Text, View, Image, ScrollView, TouchableOpacity, Linking, Dimensions } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './style';
+
+const dimensions = Dimensions.get('window');
+const imageHeight = Math.round(dimensions.width * 9 / 16);
+const imageWidth = dimensions.width;
 
 function Detail() {
     const [photos, setPhotos] = useState([]);
@@ -39,10 +43,12 @@ function Detail() {
                     <Text style={styles.itemValue}>{item.descricao}</Text>
                 </View>
 
-                {
+                { item.uri &&
                     item.uri.split(',').map((photo, index) => (
                         <View key={index} style={styles.item}>
-                            <Image source={{ uri: photo }} style={{ width: 265, height: 400 }}/>
+                            <View style={{ padding: 6 }}>
+                                <Image source={{ uri: photo }} style={{ width: '115%', height: 400, borderRadius: 8, right: 24 }}/>
+                            </View>
                         </View>
                     ))
                 }

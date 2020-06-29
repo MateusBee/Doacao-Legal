@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, View, FlatList, Text, Image, TouchableOpacity, AsyncStorage } from 'react-native';
+import { Alert, View, FlatList, Text, Image, TouchableOpacity, AsyncStorage, Dimensions } from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Entypo } from '@expo/vector-icons'; 
 
 import api from '../../service/api';
 
 import styles from './style'
+
+const dimensions = Dimensions.get('window');
+const imageHeight = Math.round(dimensions.width * 9 / 16);
+const imageWidth = dimensions.width;
 
 function Donate(){
     const [items, setItems] = useState([]);
@@ -29,10 +34,10 @@ function Donate(){
         const user_Id = await AsyncStorage.getItem('id');
         api.delete(`item/${id}`, {
             headers: {
-                Authorization: user_Id
-            }
+                Authorization: user_Id,
+            },
         }).then(() => {
-            setItems(items.filter(item => item.id !== id));
+            setItems(items.filter(item => item.item_id !== id));
             setTotal(total-1);
         })
     }
@@ -76,34 +81,46 @@ function Donate(){
                 </Text>
             </View>
 
-            <FlatList
-                data={items}
-                style={styles.itemsList}
-                keyExtractor={item => String(item.id)}
-                showsVerticalScrollIndicator={false}
-                onEndReached={loadYourItems} //é disparada de forma automática quando chegar no final da lista
-                onEndReachedThreshold={0.2} // quantos % o usuário precisa estar para que carregue mais itens de 0 até 1 onde por exemplo 0.2 seria faltando 20%
-                renderItem={({ item: item }) => (
-                    <View style={styles.item}>
+            { items.length > 0
+                ? <FlatList
+                    data={items}
+                    style={styles.itemsList}
+                    keyExtractor={item => String(item.id)}
+                    showsVerticalScrollIndicator={false}
+                    onEndReached={loadYourItems} //é disparada de forma automática quando chegar no final da lista
+                    onEndReachedThreshold={0.2} // quantos % o usuário precisa estar para que carregue mais itens de 0 até 1 onde por exemplo 0.2 seria faltando 20%
+                    renderItem={({ item: item }) => (
+                        <View style={styles.item}>
 
-                        <TouchableOpacity
-                            style={styles.delete}
-                            onPress={() => deleteItem(item.id)}
-                        >
-                            <Icon name="trash" size={20} color="#E02041"/>
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.delete}
+                                onPress={() => deleteItem(item.item_id)}
+                            >
+                                <Icon name="trash" size={20} color="#E02041"/>
+                            </TouchableOpacity>
 
-                        <Text style={styles.itemProperty}>ITEM: </Text>
-                        <Text style={styles.itemValue}>{item.item}</Text>
+                            <Text style={styles.itemProperty}>ITEM: </Text>
+                            <Text style={styles.itemValue}>{item.item}</Text>
 
-                        <Image key={item.image_id} source={{ uri: item.uri.split(',')[0] }} style={{ width: 265, height: 400, marginBottom: 10 }}/>
+                            { item.uri &&
+                                <View style={{ marginBottom: 10, padding: 6 }}>
+                                    <Image key={item.image_id} source={{ uri: item.uri.split(',')[0] }} style={{ width: '115%', height: imageHeight, borderRadius: 8, right: 24}}/>
+                                </View>
+                            }
 
-                        <Text style={styles.itemProperty}>DESCRIÇÃO: </Text>
-                        <Text style={styles.itemValue}>{item.descricao}</Text>
+                            <Text style={styles.itemProperty}>DESCRIÇÃO: </Text>
+                            <Text style={styles.itemValue}>{item.descricao}</Text>
 
-                    </View>
-                )}
-            />
+                        </View>
+                    )}
+                />
+                : <View style={styles.noItems}>
+                    <Text style={styles.noItemsText}>
+                        nenhum item para doação
+                        <Entypo name="emoji-sad" size={24} color="#737380" />
+                    </Text>
+                </View>
+            }
         </View>
     )
 }
