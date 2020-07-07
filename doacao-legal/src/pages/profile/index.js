@@ -111,7 +111,7 @@ function Profile(){
                             style={styles.signOutButton}
                             onPress={signOut}
                         >
-                        <Icon name="arrow-left" size={20} color="#E02041"/>
+                        {/* <Icon name="arrow-left" size={20} color="#E02041"/> */}
                         <Text style={styles.signOutButtonText}>Sair</Text>
                     </TouchableOpacity>
 

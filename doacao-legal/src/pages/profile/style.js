@@ -62,7 +62,7 @@ export default StyleSheet.create({
     },
 
     signOutButtonText: {
-        left: 20,
+        // left: 20,
         color: '#E02041',
         fontSize: 15,
         fontWeight: 'bold',
