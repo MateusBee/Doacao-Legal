@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native'
-import { View, FlatList, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
+import {
+    View,
+    FlatList,
+    Text,
+    Image,
+    TouchableOpacity,
+    Dimensions
+} from 'react-native';
+
+import { Button } from 'react-native-elements';
 
 import { Feather } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import api from '../../service/api';
 
@@ -24,6 +34,10 @@ function Items(){
         navigation.navigate('Detail', { item });
     }
 
+    function navigateToNew() {
+        navigation.navigate('NewItem');
+    }
+
     async function loadItems() {
         if(loading) {
             return;
@@ -40,7 +54,7 @@ function Items(){
         });
 
         setItems([...items, ...response.data]);
-        setTotal(response.headers['x-total-count']);
+        if(page === 1) setTotal(response.headers['x-total-count']);
         setPage(page + 1);
         setLoading(false);
     }
@@ -49,7 +63,7 @@ function Items(){
         loadItems();
     }, [])
 
-    return (
+    return ( <>
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>Lista de Itens para Doação</Text>
@@ -70,9 +84,12 @@ function Items(){
                         <Text style={styles.itemProperty}>ITEM: </Text>
                         <Text style={styles.itemValue}>{item.item}</Text>
 
-                        { item.uri &&
+                        { !!item.uri &&
                             <View style={{ marginBottom: 10, padding: 6 }}>
-                                <Image key={item.image_id} source={{ uri: item.uri.split(',')[0] }} style={{ width: '115%', height: imageHeight, borderRadius: 8, right: 24}}/>
+                                <Image
+                                    key={item.image_id}
+                                    source={{ uri: 'https://res.cloudinary.com/dd9mn3zj8/image/upload/v1593547896/'.concat(item.uri.split(',')[0]) }}
+                                    style={{ width: '115%', height: imageHeight, borderRadius: 8, right: 24}}/>
                             </View>
                         }
 
@@ -85,14 +102,21 @@ function Items(){
                             onPress={() => navigateToDetail(item)}
                         >
                             <Text style={styles.dateilsButtonText}>Ver mais detalhes</Text>
-                            <Feather name="arrow-right" size={16} color="#00ff7f"/>
+                            <Feather name="arrow-right" size={16} color="#00B3ED"/>
                         </TouchableOpacity>
                     </View>
                 )}
             />
-
         </View>
-    )
+        <View style={styles.newItem}>
+            <Icon
+                name="plus-circle"
+                size={45}
+                color="green"
+                onPress={() => navigateToNew()}
+            />
+        </View>
+    </>)
 }
 
 export default Items;

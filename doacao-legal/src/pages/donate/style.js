@@ -72,5 +72,11 @@ export default StyleSheet.create({
     noItemsText: {
         color: '#737380',
         fontSize: 20,
+    },
+    
+    newItem: {
+        position: 'absolute',
+        marginTop: '165%',
+        marginLeft: '83%'
     }
 });

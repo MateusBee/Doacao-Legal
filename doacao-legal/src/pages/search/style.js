@@ -22,33 +22,4 @@ export default StyleSheet.create({
         color: '#13131a',
         fontWeight: 'bold',
     },
-
-    data: {
-        padding: 24,
-        borderRadius: 8,
-        backgroundColor: '#FFF',
-        marginBottom: 10,
-    },
-
-    actionsButton: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-
-    backButtonText: {
-        color: '#00B3ED',
-        fontSize: 15,
-        fontWeight: 'bold',
-        marginLeft: 10,
-    },
-
-    whatsapp: {
-        color: 'green',
-        fontSize: 15,
-        fontWeight: 'bold',
-        marginRight: 10,
-    }
-
 });

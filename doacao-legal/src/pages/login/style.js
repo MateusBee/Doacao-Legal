@@ -25,7 +25,8 @@ export default StyleSheet.create({
         fontSize: 30,
         flexDirection: 'row',
         alignItems: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontWeight: 'bold',
     },
 
     login: {

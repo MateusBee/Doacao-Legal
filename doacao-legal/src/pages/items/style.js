@@ -62,8 +62,14 @@ export default StyleSheet.create({
     },
 
     dateilsButtonText: {
-        color: '#00ff7f',
+        color: '#00B3ED',
         fontSize: 15,
         fontWeight: 'bold',
     },
+
+    newItem: {
+        position: 'absolute',
+        marginTop: '165%',
+        marginLeft: '83%'
+    }
 });

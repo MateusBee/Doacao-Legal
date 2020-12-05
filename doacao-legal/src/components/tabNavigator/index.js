@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import Items from '../../pages/items';
 import Donate from '../../pages/donate';
-import NewItem from '../../pages/newItem';
+import Search from '../../pages/search';
 import Profile from '../../pages/profile';
 
 import style from './style'
@@ -16,12 +16,12 @@ const TabNavigator = createBottomTabNavigator(
     {
         Itens: Items,
         'Seus Itens': Donate,
-        Doar: NewItem,
+        Buscar: Search,
         Perfil: Profile
     },
     {
         tabBarOptions: {
-            activeTintColor: '#00ff7f',
+            activeTintColor: '#00B3ED',
             inactiveTintColor: '#bdc3c7',
             style: {
                 backgroundColor: '#ecf0f1'
@@ -38,8 +38,8 @@ const TabNavigator = createBottomTabNavigator(
               iconName = 'home';
             if(routeName === "Seus Itens")
               iconName = 'folder-open';
-            if(routeName === "Doar")
-              iconName = 'plus';
+            if(routeName === "Buscar")
+              iconName = 'search';
             if(routeName === "Perfil")
               iconName = 'user';
 

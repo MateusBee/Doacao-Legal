@@ -64,7 +64,7 @@ function Recover() {
                     style={styles.actionsButton}
                     onPress={goBack}
                 >
-                    <Icon name="arrow-left" size={20} color="#E02041"/>
+                    <Icon name="arrow-left" size={20} color="#00B3ED"/>
                     <Text style={styles.backButtonText}>Voltar</Text>
                 </TouchableOpacity>
 

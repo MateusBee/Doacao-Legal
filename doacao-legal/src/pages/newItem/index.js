@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native'
 import { Alert, Text, Image, View, TouchableOpacity, AsyncStorage, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Button } from 'react-native-paper';
@@ -20,6 +21,8 @@ function NewItem(){
     const [photos, setPhotos] = useState([]);
     const [key, setKey] = useState(0);
 
+    const navigation = useNavigation();
+
     function invalidItem(title, message){
         return Alert.alert(
             `${title}`,
@@ -29,6 +32,10 @@ function NewItem(){
             ],
             { cancelable: false }
           )
+    }
+
+    function goBack() {
+        navigation.goBack();
     }
 
     function clear() {
@@ -93,7 +100,10 @@ function NewItem(){
                 const image = await handleUpload(file);
                 setloadingPhoto(true);
 
-                const data = { uri: image.url, id: key }
+                console.log(image.public_id);
+                console.log('image: ', image);
+
+                const data = { uri: image.public_id, id: key }
                 setPhotos(photos.concat(data));
                 setPhoto(true);
                 setKey(key + 1);
@@ -162,7 +172,10 @@ function NewItem(){
                     photo && photos.map(image =>
                         (
                             <View key={image.id} style={styles.uploadImage}>
-                                <Image key={image.id} source={{ uri: image.uri }} style={{ width: 280, height: 400 }}/>
+                                <Image
+                                    key={image.id}
+                                    source={{uri: 'https://res.cloudinary.com/dd9mn3zj8/image/upload/v1593547896/'.concat(image.uri) }}
+                                    style={{ width: 280, height: 400 }}/>
                                 
                                 <TouchableOpacity
                                     style={styles.removeButton}
@@ -183,7 +196,7 @@ function NewItem(){
                 <View style={styles.buttons}>
 
                     <View style={styles.button}>
-                        <Button style={styles.cancel} mode='contained' onPress={clear} >Limpar</Button>
+                        <Button style={styles.cancel} mode='contained' onPress={goBack} >Voltar</Button>
                     </View>
 
                     <View style={styles.button}>

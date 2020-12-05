@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, View, FlatList, Text, Image, TouchableOpacity, AsyncStorage, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native'
+import {
+    Alert,
+    View,
+    FlatList,
+    Text,
+    Image,
+    TouchableOpacity,
+    AsyncStorage,
+    Dimensions
+} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Entypo } from '@expo/vector-icons'; 
@@ -17,6 +27,12 @@ function Donate(){
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
+
+    const navigation = useNavigation();
+
+    function navigateToNew() {
+        navigation.navigate('NewItem');
+    }
 
     function deleteItem(id) {
         return Alert.alert(
@@ -72,7 +88,7 @@ function Donate(){
         loadYourItems();
     }, [])
 
-    return (
+    return (<>
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>Seus Itens para Doação</Text>
@@ -102,9 +118,11 @@ function Donate(){
                             <Text style={styles.itemProperty}>ITEM: </Text>
                             <Text style={styles.itemValue}>{item.item}</Text>
 
-                            { item.uri &&
+                            { !!item.uri &&
                                 <View style={{ marginBottom: 10, padding: 6 }}>
-                                    <Image key={item.image_id} source={{ uri: item.uri.split(',')[0] }} style={{ width: '115%', height: imageHeight, borderRadius: 8, right: 24}}/>
+                                    <Image
+                                        key={item.image_id}
+                                        source={{ uri: 'https://res.cloudinary.com/dd9mn3zj8/image/upload/v1593547896/'.concat(item.uri.split(',')[0]) }} style={{ width: '115%', height: imageHeight, borderRadius: 8, right: 24}}/>
                                 </View>
                             }
 
@@ -122,7 +140,15 @@ function Donate(){
                 </View>
             }
         </View>
-    )
+        <View style={styles.newItem}>
+            <Icon
+                name="plus-circle"
+                size={45}
+                color="green"
+                onPress={() => navigateToNew()}
+            />
+        </View>
+    </>)
 }
 
 export default Donate;

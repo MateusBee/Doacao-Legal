@@ -68,11 +68,11 @@ export default StyleSheet.create({
 
     cancel: {
         borderRadius: 4,
-        backgroundColor: 'gray'
+        backgroundColor: '#00B3ED'
     },
 
     save: {
         borderRadius: 4,
         backgroundColor: 'green'
-    }
+    },
 });

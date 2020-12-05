@@ -69,7 +69,7 @@ export default StyleSheet.create({
     },
 
     backButtonText: {
-        color: '#E02041',
+        color: '#00B3ED',
         fontSize: 15,
         fontWeight: 'bold',
         marginLeft: 10,

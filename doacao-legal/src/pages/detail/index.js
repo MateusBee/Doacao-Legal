@@ -43,11 +43,11 @@ function Detail() {
                     <Text style={styles.itemValue}>{item.descricao}</Text>
                 </View>
 
-                { item.uri &&
+                { !!item.uri &&
                     item.uri.split(',').map((photo, index) => (
                         <View key={index} style={styles.item}>
                             <View style={{ padding: 6 }}>
-                                <Image source={{ uri: photo }} style={{ width: '115%', height: 400, borderRadius: 8, right: 24 }}/>
+                                <Image source={{ uri: 'https://res.cloudinary.com/dd9mn3zj8/image/upload/v1593547896/'.concat(photo) }} style={{ width: '115%', height: 400, borderRadius: 8, right: 24 }}/>
                             </View>
                         </View>
                     ))
@@ -112,7 +112,7 @@ function Detail() {
                         style={styles.actionsButton}
                         onPress={goBack}
                     >
-                        <Icon name="arrow-left" size={20} color="#E02041"/>
+                        <Icon name="arrow-left" size={20} color="#00B3ED"/>
                         <Text style={styles.backButtonText}>Voltar</Text>
                     </TouchableOpacity>
 

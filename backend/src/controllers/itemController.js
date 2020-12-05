@@ -54,9 +54,6 @@ module.exports = {
                 'images.uri'
             ]);
 
-        // const images = await  connection('images')
-        //     .where('item_id', '=', )
-
         response.header('X-Total-Count', count['count(*)'])
 
         return response.json(item);
