@@ -22,4 +22,11 @@ export default StyleSheet.create({
         color: '#13131a',
         fontWeight: 'bold',
     },
+
+    data: {
+        padding: 24,
+        borderRadius: 8,
+        backgroundColor: '#FFF',
+        marginBottom: 10,
+    },
 });
