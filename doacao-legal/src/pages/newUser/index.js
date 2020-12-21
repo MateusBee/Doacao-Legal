@@ -141,7 +141,7 @@ function NewUser() {
                         <View>
                             <Reinput
                                 label='Nome*'
-                                activeColor='#00ff7f'
+                                activeColor='#00B3ED'
                                 // leftIcon={{ type: 'font-awesome', name: 'envelope', color: 'gray' }}
                                 value={user.name}
                                 onChangeText={e => setUser({ ...user, name: e })}
@@ -150,7 +150,7 @@ function NewUser() {
                         <View>
                             <Reinput
                                 label='Email*'
-                                activeColor='#00ff7f'
+                                activeColor='#00B3ED'
                                 value={user.email}
                                 onChangeText={e => setUser({ ...user, email: e })}
 
@@ -159,7 +159,7 @@ function NewUser() {
                         <View>
                             <Reinput
                                 label='Senha*'
-                                activeColor='#00ff7f'
+                                activeColor='#00B3ED'
                                 secureTextEntry={true}
                                 value={user.senha}
                                 onChangeText={e => setUser({ ...user, senha: e })}
@@ -169,7 +169,7 @@ function NewUser() {
                         <View>
                             <Reinput
                                 label='Confirmar Senha*'
-                                activeColor='#00ff7f'
+                                activeColor='#00B3ED'
                                 secureTextEntry={true}
                                 value={confSenha}
                                 onChangeText={e => setConfSenha(e)}
@@ -179,7 +179,7 @@ function NewUser() {
                         <View>
                             <Reinput
                                 label='Telefone*'
-                                activeColor='#00ff7f'
+                                activeColor='#00B3ED'
                                 value={user.telefone}
                                 onChangeText={e => updateFieldTelefone(e)}
 
@@ -196,7 +196,7 @@ function NewUser() {
                         <View>
                             <Reinput
                                 label='CEP*'
-                                activeColor='#00ff7f'
+                                activeColor='#00B3ED'
                                 type='number'
                                 value={user.cep}
                                 onChangeText={e => updateFieldCep(e)}
@@ -206,7 +206,7 @@ function NewUser() {
                         <View>
                             <Reinput
                                 label='Cidade*'
-                                activeColor='#00ff7f'
+                                activeColor='#00B3ED'
                                 value={user.cidade}
                                 onChangeText={e => setUser({ ...user, cidade: e })}
 
@@ -215,7 +215,7 @@ function NewUser() {
                         <View>
                             <Reinput
                                 label='Bairro*'
-                                activeColor='#00ff7f'
+                                activeColor='#00B3ED'
                                 value={user.bairro}
                                 onChangeText={e => setUser({ ...user, bairro: e })}
 
@@ -224,7 +224,7 @@ function NewUser() {
                         <View>
                             <Reinput
                                 label='Rua*'
-                                activeColor='#00ff7f'
+                                activeColor='#00B3ED'
                                 value={user.rua}
                                 onChangeText={e => setUser({ ...user, rua: e })}
 
@@ -236,7 +236,7 @@ function NewUser() {
                             <Reinput
                                 style={{ marginRight: 30 }}
                                 label='Numero*'
-                                activeColor='#00ff7f'
+                                activeColor='#00B3ED'
                                 value={user.numero}
                                 onChangeText={e => setUser({ ...user, numero: e })}
                             />
@@ -245,7 +245,7 @@ function NewUser() {
                                 label='UF*'
                                 // maxHeight={2}
                                 //minHeight={2}
-                                activeColor='#00ff7f'
+                                activeColor='#00B3ED'
                                 value={user.uf}
                                 onChangeText={e => setUser({ ...user, uf: e })}
                             />

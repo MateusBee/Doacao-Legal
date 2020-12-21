@@ -51,7 +51,7 @@ function Recover() {
             <View style={styles.data}>
                 <Reinput
                     label='Email'
-                    activeColor='#00ff7f'
+                    activeColor='#00B3ED'
                     value={email}
                     onChangeText={e => setEmail(e)}
 

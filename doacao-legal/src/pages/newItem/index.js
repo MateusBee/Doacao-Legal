@@ -100,9 +100,6 @@ function NewItem(){
                 const image = await handleUpload(file);
                 setloadingPhoto(true);
 
-                console.log(image.public_id);
-                console.log('image: ', image);
-
                 const data = { uri: image.public_id, id: key }
                 setPhotos(photos.concat(data));
                 setPhoto(true);
@@ -148,7 +145,7 @@ function NewItem(){
                     <View>
                         <Reinput
                             label='Item'
-                            activeColor='#00ff7f'
+                            activeColor='#00B3ED'
                             fontSize={18}
                             value={item}
                             onChangeText={e => setItem(e)}
@@ -158,7 +155,7 @@ function NewItem(){
                     <View>
                         <Reinput
                             label='Descrição'
-                            activeColor='#00ff7f'
+                            activeColor='#00B3ED'
                             fontSize={18}
                             multiline={true}
                             value={descricao}

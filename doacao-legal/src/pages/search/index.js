@@ -21,7 +21,7 @@ function Search() {
             <View style={styles.data}>
                 <Reinput
                     label='Buscar'
-                    activeColor='#00ff7f'
+                    activeColor='#00B3ED'
                     value={search}
                     onChangeText={e => setSearch(e)}
 

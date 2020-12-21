@@ -97,7 +97,6 @@ module.exports = {
             ]);
 
         if(!user){
-            console.log('Caiu aqui');
             return response.status(404).json({ error: 'Email not found!' });
         }
 
